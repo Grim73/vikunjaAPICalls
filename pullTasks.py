@@ -6,10 +6,12 @@ from sys import argv
 load_dotenv()
 api = os.getenv("API_KEY")
 site = os.getenv("URL")
+pid = argv[1]
+vid = argv[2]
+# Replace 'API_KEY' with your actual API key from NewsAPI
 def p1():
     API_KEY = f'{api}'
-    #tid = argv [1]
-    url = f"{site}/api/v1/projects"
+    url = f"{site}/api/v1/projects/{pid}/views/{vid}/tasks"
     head = {'Authorization': 'Bearer {}'.format(API_KEY)}
     headers = {'content-type': 'application/json'}
     response = requests.get(url, headers=head)
@@ -23,18 +25,12 @@ def p1():
     for item in output:
         title = item['title']
         taskid = item['id']
-        views = item['views']
-        viewi = views[0]
-        viewid = viewi['id']
-        print(f"{title}.{taskid}.{viewid}")
-        for extract in views:
+        #input()
+        print(f"{title}.{taskid}")
+        #for extract in item:
+        #    print(type(extract))
+        #    input("continue")
 
-            idfin = extract['id']
-            vkind = extract['view_kind']
-            if idfin == 'list':
-                print(f"{idfin}  {vkind}")
-
-    #input("continue")
     #print(title)
     
 p1()
